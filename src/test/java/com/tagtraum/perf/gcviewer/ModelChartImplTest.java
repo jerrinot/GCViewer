@@ -7,7 +7,6 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -39,7 +38,7 @@ public class ModelChartImplTest {
         GCPreferences preferences = new GCPreferences();
         GCModel gcModel = Mockito.mock(GCModel.class);
         Mockito.when(gcModel.hasDateStamp()).thenReturn(testCase.hasDateStamp());
-        Mockito.when(gcModel.getFirstDateStamp()).thenReturn(ZonedDateTime.now());
+        Mockito.when(gcModel.getFirstDateStamp()).thenReturn(new Date());
         preferences.setShowDateStamp(testCase.isShowDateStamp());
 
         //when

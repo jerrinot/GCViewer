@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -264,7 +264,7 @@ public class DataReaderSun1_6_0G1 extends AbstractDataReaderSun {
                             // detailed G1 events start with GC_MEMORY pattern, but are of type GC_MEMORY_PAUSE
 
                             gcEvent = new G1GcEvent();
-                            ZonedDateTime datestamp = parseDatestamp(gcPauseMatcher.group(GC_PAUSE_GROUP_DATESTAMP), parsePosition);
+                            Date datestamp = parseDatestamp(gcPauseMatcher.group(GC_PAUSE_GROUP_DATESTAMP), parsePosition);
                             gcEvent.setDateStamp(datestamp);
                             double timestamp = 0;
                             if (gcPauseMatcher.group(GC_PAUSE_GROUP_TIMESTAMP) == null) {
@@ -520,7 +520,7 @@ public class DataReaderSun1_6_0G1 extends AbstractDataReaderSun {
             // parse timestamp          "double:"
             // parse collection type    "[TYPE"
             // pre-used->post-used, total, time
-            ZonedDateTime datestamp = parseDatestamp(line, pos);
+            Date datestamp = parseDatestamp(line, pos);
             double timestamp = getTimestamp(line, pos, datestamp);
             ExtendedType type = parseType(line, pos);
             // special provision for concurrent events
@@ -574,7 +574,7 @@ public class DataReaderSun1_6_0G1 extends AbstractDataReaderSun {
      * @throws ParseException
      */
     private AbstractGCEvent<?> parseConcurrentEvent(String line,
-            ParseInformation pos, ZonedDateTime datestamp,
+            ParseInformation pos, Date datestamp,
             double timestamp, final ExtendedType type) throws ParseException {
 
         ConcurrentGCEvent event = new ConcurrentGCEvent();

@@ -173,7 +173,7 @@ public class ModelChartImpl extends JScrollPane implements ModelChart, ChangeLis
                     else {
                         long suggestedStartDate = model.getLastModified();
                         if (model.hasDateStamp()) {
-                            suggestedStartDate = model.getFirstDateStamp().toInstant().toEpochMilli();
+                            suggestedStartDate = model.getFirstDateStamp().getTime();
                         }
                         else if (model.hasCorrectTimestamp()) {
                             suggestedStartDate -= (long)(model.getRunningTime() * 1000.0d);
@@ -351,7 +351,7 @@ public class ModelChartImpl extends JScrollPane implements ModelChart, ChangeLis
     @Override
     public void setShowDateStamp(boolean showDateStamp) {
         if (showDateStamp && model.hasDateStamp()) {
-            timeOffsetPanel.setDate(Date.from(model.getFirstDateStamp().toInstant()));
+            timeOffsetPanel.setDate(model.getFirstDateStamp());
             timestampRuler.setOffset(timeOffsetPanel.getDate().getTime() / 1000);
             timeOffsetPanel.setOffsetSet(true);
             timestampRuler.revalidate();

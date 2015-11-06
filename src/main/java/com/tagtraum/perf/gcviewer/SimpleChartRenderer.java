@@ -68,14 +68,17 @@ public class SimpleChartRenderer {
 
         private IOException ioException;
 
-        public void execute(ChartDrawingParameters params) throws IOException {
+        public void execute(final ChartDrawingParameters params) throws IOException {
             try {
-                SwingUtilities.invokeAndWait(() -> {
-                    try {
-                        drawAndSaveToStream(params);
-                    }
-                    catch (IOException e) {
-                        this.ioException = e;
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            drawAndSaveToStream(params);
+                        }
+                        catch (IOException e) {
+                            ioException = e;
+                        }
                     }
                 });
             }

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +30,6 @@ public class TestDataReaderSun1_7_0 {
 
     private static final Logger IMP_LOGGER = Logger.getLogger("com.tagtraum.perf.gcviewer.imp");
     private static final Logger DATA_READER_FACTORY_LOGGER = Logger.getLogger("com.tagtraum.perf.gcviewer.DataReaderFactory");
-
-    private final DateTimeFormatter dateTimeFormatter = AbstractDataReaderSun.DATE_TIME_FORMATTER;
 
     private InputStream getInputStream(String fileName) throws IOException {
         return UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_OPENJDK, fileName);
@@ -371,6 +369,7 @@ public class TestDataReaderSun1_7_0 {
         handler.setLevel(Level.WARNING);
         IMP_LOGGER.addHandler(handler);
         DATA_READER_FACTORY_LOGGER.addHandler(handler);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
         ByteArrayInputStream in = new ByteArrayInputStream(
                 ("2012-04-26T23:59:50.899+0400: 33395.153: [GC 33395.153: [ParNew"
@@ -391,8 +390,8 @@ public class TestDataReaderSun1_7_0 {
                 model.get(1).getTimestamp(),
                 closeTo(33395.153 + 0.1120380, 0.0000001));
         assertThat("Application Stopped datestamp",
-                dateTimeFormatter.format(model.get(1).getDatestamp()),
-                equalTo("2012-04-26T23:59:51.011+0400"));
+                dateFormatter.format(model.get(1).getDatestamp()),
+                equalTo("2012-04-26T23:59:51.011"));
         assertThat("first timestamp", model.getFirstPauseTimeStamp(), closeTo(33395.153, 0.00001));
     }
 

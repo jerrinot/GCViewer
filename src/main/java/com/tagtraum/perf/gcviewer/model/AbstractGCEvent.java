@@ -1,9 +1,9 @@
 package com.tagtraum.perf.gcviewer.model;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.TreeSet;
  */
 public abstract class AbstractGCEvent<T extends AbstractGCEvent<T>> implements Serializable {
     private final Iterator<T> EMPTY_ITERATOR = Collections.emptyIterator();
-    private ZonedDateTime datestamp;
+    private Date datestamp;
     private double timestamp;
     private ExtendedType extendedType = ExtendedType.UNDEFINED;
     private boolean tenuredDetail;
@@ -58,7 +58,7 @@ public abstract class AbstractGCEvent<T extends AbstractGCEvent<T>> implements S
         return tenuredDetail;
     }
 
-    public void setDateStamp(ZonedDateTime datestamp) {
+    public void setDateStamp(Date datestamp) {
     	this.datestamp = datestamp;
     }
 
@@ -146,7 +146,7 @@ public abstract class AbstractGCEvent<T extends AbstractGCEvent<T>> implements S
         return timestamp;
     }
 
-    public ZonedDateTime getDatestamp() {
+    public Date getDatestamp() {
         return datestamp;
     }
 
