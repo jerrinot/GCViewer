@@ -13,6 +13,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.event.HyperlinkListener;
 
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 import com.tagtraum.perf.gcviewer.util.UrlDisplayHelper;
 
 /**
@@ -106,10 +107,13 @@ public class TextFileViewer extends ScreenCenteredDialog {
     }
 
     private String readFile(String fileName) throws IOException {
-        try (InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName)) {
-
+        InputStream in = null;
+        try {
+            in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
             if (in != null) {
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
+                BufferedReader reader = null;
+                try {
+                    reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
                     
                     StringBuilder text = new StringBuilder();
                     while (reader.ready()) {
@@ -118,10 +122,15 @@ public class TextFileViewer extends ScreenCenteredDialog {
                     
                     return text.toString();
                 }
+                finally {
+                    ResourceUtils.closeQuitly(reader);
+                }
             }
             else {
                 return "'" + fileName + "' not found";
             }
+        } finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     

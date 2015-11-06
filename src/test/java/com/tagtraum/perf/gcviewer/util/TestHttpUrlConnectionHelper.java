@@ -130,8 +130,10 @@ public class TestHttpUrlConnectionHelper {
         URL url = new URL("http://localhost/gclog.txt");
         HttpURLConnection conn = mock(HttpURLConnection.class);
         long fileSize = file.length();
-        
-        try (FileInputStream fis = new FileInputStream(file)) {
+
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
             when(conn.getContentEncoding()).thenReturn(contentEncoding);
             when(conn.getContentType()).thenReturn("text/plain");
             when(conn.getContentLength()).thenReturn((int)fileSize);
@@ -154,6 +156,8 @@ public class TestHttpUrlConnectionHelper {
             else {
                 assertInputStreamEqualToFile("openInputStream(conn," + acceptEncoding + ")", expectedFile, in);
             }
+        } finally {
+            ResourceUtils.closeQuitly(fis);
         }
     }
     
@@ -167,8 +171,11 @@ public class TestHttpUrlConnectionHelper {
     private void assertInputStreamEqualToFile(String msg, String file, InputStream in) throws IOException {
         // this test must not be done on byte level, because line endings are platform dependent!
         Path path = Paths.get(PARENT_PATH, file);
-        try (LineNumberReader expectedContentReader = new LineNumberReader(new FileReader(path.toFile()));
-             LineNumberReader inputStreamReader = new LineNumberReader(new InputStreamReader(in))) {
+        LineNumberReader expectedContentReader = null;
+        LineNumberReader inputStreamReader = null;
+        try {
+            expectedContentReader = new LineNumberReader(new FileReader(path.toFile()));
+            inputStreamReader = new LineNumberReader(new InputStreamReader(in));
 
             while (expectedContentReader.ready() && inputStreamReader.ready()) {
                 String expectedLine = expectedContentReader.readLine();
@@ -178,6 +185,10 @@ public class TestHttpUrlConnectionHelper {
 
             assertThat(msg + ": expectedContentReader must be at EOF", expectedContentReader.ready(), equalTo(false));
             assertThat(msg + ": inputStreamReader must be at EOF", inputStreamReader.ready(), equalTo(false));
+        }
+        finally {
+            ResourceUtils.closeQuitly(expectedContentReader);
+            ResourceUtils.closeQuitly(inputStreamReader);
         }
     }
 

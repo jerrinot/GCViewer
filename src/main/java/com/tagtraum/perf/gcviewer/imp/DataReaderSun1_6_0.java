@@ -25,6 +25,7 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.VmOperationEvent;
 import com.tagtraum.perf.gcviewer.util.NumberParser;
 import com.tagtraum.perf.gcviewer.util.ParseInformation;
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 
 /**
  * Parses log output from Sun / Oracle Java 1.4 / 1.5 / 1.6. / 1.7 / 1.8.
@@ -210,7 +211,9 @@ public class DataReaderSun1_6_0 extends AbstractDataReaderSun {
     public GCModel read() throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun / Oracle 1.4.x / 1.5.x / 1.6.x / 1.7.x / 1.8.x format...");
 
-        try (BufferedReader in = this.in) {
+        BufferedReader in = null;
+        try {
+            in = this.in;
             GCModel model = new GCModel();
             model.setFormat(GCModel.Format.SUN_X_LOG_GC);
             Matcher mixedLineMatcher = linesMixedPattern.matcher("");
@@ -421,6 +424,7 @@ public class DataReaderSun1_6_0 extends AbstractDataReaderSun {
         }
         finally {
             if (LOG.isLoggable(Level.INFO)) LOG.info("Done reading.");
+            ResourceUtils.closeQuitly(in);
         }
     }
 

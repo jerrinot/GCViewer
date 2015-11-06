@@ -1,5 +1,7 @@
 package com.tagtraum.perf.gcviewer.log;
 
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
+
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 import java.io.IOException;
@@ -24,15 +26,20 @@ public class TextAreaFormatter extends Formatter {
         sb.append(record.getMessage());
         sb.append(LINE_SEPARATOR);
         if (record.getThrown() != null) {
-            try (StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw)) {
+            StringWriter sw = null;
+            PrintWriter pw = null;
+            try {
+                sw = new StringWriter();
+                pw = new PrintWriter(sw);
 
                 record.getThrown().printStackTrace(pw);
                 sb.append(sw.toString());
             }
-            catch (IOException e) {
-                // ignore
+            finally {
+                ResourceUtils.closeQuitly(sw);
+                ResourceUtils.closeQuitly(pw);
             }
+
         }
         return sb.toString();
     }

@@ -37,14 +37,24 @@ public class UrlDisplayHelper {
         try {
             Desktop.getDesktop().browse(URI.create(url));
         }
-        catch (IOException | IllegalArgumentException | NullPointerException e) {
-            e.printStackTrace();
-            // TODO localize!
-            JOptionPane.showMessageDialog(parent,
-                    "oops - could not show url ('" + url + "'): " + e.toString(),
-                    "oops",
-                    JOptionPane.ERROR_MESSAGE | JOptionPane.OK_OPTION);
+        catch (IOException e) {
+            onException(parent, url, e);
         }
+        catch (IllegalArgumentException e) {
+            onException(parent, url, e);
+        }
+        catch (NullPointerException e) {
+            onException(parent, url, e);
+        }
+    }
+
+    private static void onException(Component parent, String url, Exception e) {
+        e.printStackTrace();
+        // TODO localize!
+        JOptionPane.showMessageDialog(parent,
+                "oops - could not show url ('" + url + "'): " + e.toString(),
+                "oops",
+                JOptionPane.ERROR_MESSAGE | JOptionPane.OK_OPTION);
     }
 
     /**

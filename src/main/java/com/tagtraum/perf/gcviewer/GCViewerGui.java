@@ -740,7 +740,7 @@ public class GCViewerGui extends JFrame {
             List<String> recentFiles = preferences.getRecentFiles();
             for (String filename : recentFiles) {
                 final String[] tokens = filename.split(";");
-                final List<URL> urls = new LinkedList<>();
+                final List<URL> urls = new LinkedList<URL>();
                 for (String token : tokens) {
                     try {
                         urls.add(new URL(token));

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -57,7 +58,9 @@ public class TestDataReaderFactory {
     @Test
     public void testGetDataReaderJDK6GZipped() throws Exception {
         String sampleGz = "SampleSun1_6_0PrintHeapAtGC.txt.gz";
-        try (InputStream in = getInputStreamOpenJdk(sampleGz)) {
+        InputStream in = null;
+        try  {
+            in = getInputStreamOpenJdk(sampleGz);
         
 	        DataReader reader = new DataReaderFactory().getDataReader(in);
     	    assertDataReader("getDataReader() reading " + sampleGz, DataReaderSun1_6_0.class, reader.getClass());
@@ -65,170 +68,272 @@ public class TestDataReaderFactory {
     	    GCModel model = reader.read();
     	    assertEquals("# events", 2, model.size());
         }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
     }
 
     @Test
     public void getDataReaderG1() throws Exception {
         String sampleFile = "SampleSun1_7_0G1-ApplicationStopped.txt";
-        try (InputStream in = getInputStreamOpenJdk(sampleFile)) {
-
+        InputStream in = null;
+        try {
+            in = getInputStreamOpenJdk(sampleFile);
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader("getDataReader() reading " + sampleFile, DataReaderSun1_6_0G1.class, reader.getClass());
 
             GCModel model = reader.read();
             assertEquals("# events", 55, model.size());
         }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
     }
     
     @Test
-    public void testJRockit1_4GcReportGenCon() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-gencon.txt")) {
+    public void testJRockit1_4GcReportGenCon() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-gencon.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_4_2.class, reader.getClass());
         }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
     }
     
     @Test
-    public void testJRockit1_4GcReportParallel() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-parallel.txt")) {
+    public void testJRockit1_4GcReportParallel() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-parallel.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_4_2.class, reader.getClass());
         }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
     }
     
     @Test
-    public void testJRockit1_4GcReportPrioPauseTime() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-gcpriopausetime.txt")) {
+    public void testJRockit1_4GcReportPrioPauseTime() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-gcpriopausetime.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_4_2.class, reader.getClass());
         }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
     }
     
     @Test
-    public void testJRockit1_4GcReportPrioThroughput() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-gcpriothroughput.txt")) {
+    public void testJRockit1_4GcReportPrioThroughput() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-gcpriothroughput.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_4_2.class, reader.getClass());
         }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
     }
     
     @Test
-    public void testJRockit1_4GcReportSingleCon() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-singlecon.txt")) {
+    public void testJRockit1_4GcReportSingleCon() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2ts-gcreport-singlecon.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_4_2.class, reader.getClass());
         }
-    }
-    
-    @Test
-    public void testJRockit1_4GenCon() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2gencon.txt")) {
-            DataReader reader = new DataReaderFactory().getDataReader(in);
-            assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_4GenConBig() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2gencon-big.txt")) {
+    public void testJRockit1_4GenCon() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2gencon.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_4Parallel() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2parallel.txt")) {
+    public void testJRockit1_4GenConBig() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2gencon-big.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_4PrioPauseTime() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_4_2priopausetime.txt")) {
+    public void testJRockit1_4Parallel() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2parallel.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_5GenCon() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_5_12_gencon.txt")) {
+    public void testJRockit1_4PrioPauseTime() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_4_2priopausetime.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_5GenConMemStats() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_5_20_memstats2.txt")) {
+    public void testJRockit1_5GenCon() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_5_12_gencon.txt");
+            DataReader reader = new DataReaderFactory().getDataReader(in);
+            assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
+    }
+    
+    @Test
+    public void testJRockit1_5GenConMemStats() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_5_20_memstats2.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_6_0.class, reader.getClass());
         }
-    }
-    
-    @Test
-    public void testJRockit1_5GenPar() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_5_12_genpar.txt")) {
-            DataReader reader = new DataReaderFactory().getDataReader(in);
-            assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_5PrioPausetime() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_5_12_gcpriopausetime.txt")) {
+    public void testJRockit1_5GenPar() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_5_12_genpar.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_5PrioThroughput() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_5_12_gcpriothroughput.txt")) {
+    public void testJRockit1_5PrioPausetime() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_5_12_gcpriopausetime.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_5SimpleOpts() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_5_12-gcreport-simpleopts-singlecon.txt")) {
+    public void testJRockit1_5PrioThroughput() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_5_12_gcpriothroughput.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_6GenConVerbose() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_6_verbose_gc_mode_gencon.txt")) {
+    public void testJRockit1_5SimpleOpts() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_5_12-gcreport-simpleopts-singlecon.txt");
+            DataReader reader = new DataReaderFactory().getDataReader(in);
+            assertDataReader(DataReaderJRockit1_5_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
+        }
+    }
+    
+    @Test
+    public void testJRockit1_6GenConVerbose() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_6_verbose_gc_mode_gencon.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_6_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
     public void testJRockit1_6GenParVerbose() throws Exception {
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_6_33_gc_mode_genpar_verbosenursery.txt")) {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_6_33_gc_mode_genpar_verbosenursery.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_6_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_6ParCon() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_6_gc_mode_singleparcon.txt")) {
+    public void testJRockit1_6ParCon() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_6_gc_mode_singleparcon.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_6_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     
     @Test
-    public void testJRockit1_6ParConVerbose() throws Exception { 
-        try (InputStream in = getInputStreamJRockit("SampleJRockit1_6_verbose_gc_mode_singleparcon.txt")) {
+    public void testJRockit1_6ParConVerbose() throws Exception {
+        InputStream in = null;
+        try {
+            in = getInputStreamJRockit("SampleJRockit1_6_verbose_gc_mode_singleparcon.txt");
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader(DataReaderJRockit1_6_0.class, reader.getClass());
+        }
+        finally {
+            ResourceUtils.closeQuitly(in);
         }
     }
     

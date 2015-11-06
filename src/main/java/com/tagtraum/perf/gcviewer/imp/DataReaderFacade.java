@@ -92,7 +92,12 @@ public class DataReaderFacade {
             model = readModel(url);
             model.setURL(url);
         }
-        catch (RuntimeException | IOException e) {
+        catch (IOException e) {
+            LOGGER.severe(LocalisationHelper.getString("fileopen_dialog_read_file_failed")
+                    + "\n" + e.toString() + " " + e.getLocalizedMessage());
+            dataReaderException.initCause(e);
+        }
+        catch (RuntimeException e) {
             LOGGER.severe(LocalisationHelper.getString("fileopen_dialog_read_file_failed")
                     + "\n" + e.toString() + " " + e.getLocalizedMessage());
             dataReaderException.initCause(e);

@@ -82,7 +82,11 @@ public class SimpleChartRenderer {
                     }
                 });
             }
-            catch (InterruptedException | InvocationTargetException e) {
+            catch (InvocationTargetException e) {
+                // may look a bit strange, but allows to defer exception handling to a place, where it makes sense.
+                ioException = new IOException(e);
+            }
+            catch (InterruptedException e) {
                 // may look a bit strange, but allows to defer exception handling to a place, where it makes sense.
                 ioException = new IOException(e);
             }

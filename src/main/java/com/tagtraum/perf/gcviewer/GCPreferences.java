@@ -1,5 +1,7 @@
 package com.tagtraum.perf.gcviewer;
 
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,7 +64,9 @@ public class GCPreferences {
     }
 
     public void store() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(getPreferencesFile()))) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(getPreferencesFile()));
             properties.store(writer, "GCViewer preferences");
         }
         catch (IOException e) {
@@ -70,11 +74,16 @@ public class GCPreferences {
                 LOGGER.warning("could not store preferences (" + e.toString() + ")");
             }
         }
+        finally {
+            ResourceUtils.closeQuitly(writer);
+        }
     }
 
     public void load() {
         if (getPreferencesFile().exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(getPreferencesFile()))) {
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new FileReader(getPreferencesFile()));
                 propertiesLoaded = true;
                 properties.load(reader);
             }
@@ -82,6 +91,9 @@ public class GCPreferences {
                 if (LOGGER.isLoggable(Level.WARNING)) {
                     LOGGER.warning("could not load preferences (" + e.toString() + ")");
                 }
+            }
+            finally {
+                ResourceUtils.closeQuitly(reader);
             }
         }
     }

@@ -77,7 +77,9 @@ public class HttpUrlConnectionHelper {
 
             StringBuilder sb = new StringBuilder();
 
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(in, charSet))) {
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new InputStreamReader(in, charSet));
                 String line;
                 while ((line = br.readLine()) != null) {
                     sb.append(line).append(System.lineSeparator());
@@ -85,6 +87,9 @@ public class HttpUrlConnectionHelper {
             }
             catch(IOException e) {
                 LOGGER.log(Level.FINE, "readLine() from error page failed", e);
+            }
+            finally {
+                ResourceUtils.closeQuitly(br);
             }
 
             result = sb.toString();

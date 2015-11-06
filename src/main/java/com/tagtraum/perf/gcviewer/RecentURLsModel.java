@@ -16,9 +16,9 @@ public class RecentURLsModel {
     private Set<URL> allURLs;
 
     public RecentURLsModel() {
-        this.urlSetList = new ArrayList<>();
-        this.listeners = new ArrayList<>();
-        this.allURLs = new HashSet<>();
+        this.urlSetList = new ArrayList<URLSet>();
+        this.listeners = new ArrayList<RecentURLsListener>();
+        this.allURLs = new HashSet<URL>();
     }
 
     public void addRecentURLsListener(RecentURLsListener recentURLsListener) {
@@ -40,7 +40,7 @@ public class RecentURLsModel {
     }
 
     public List<String> getURLsStartingWith(String start) {
-        List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<String>();
         for (URL url : allURLs) {
             String urlString = url.toString();
             if (urlString.startsWith(start)) {

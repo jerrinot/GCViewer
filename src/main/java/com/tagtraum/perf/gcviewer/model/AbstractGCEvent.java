@@ -256,7 +256,7 @@ public abstract class AbstractGCEvent<T extends AbstractGCEvent<T>> implements S
      * @author <a href="mailto:gcviewer@gmx.ch">Joerg Wuethrich</a>
      */
     public static class ExtendedType implements Serializable {
-        private static final Map<String, ExtendedType> WRAPPER_MAP = new HashMap<>();
+        private static final Map<String, ExtendedType> WRAPPER_MAP = new HashMap<String, ExtendedType>();
         static {
             WRAPPER_MAP.put(Type.UNDEFINED.getName(), new ExtendedType(Type.UNDEFINED));
         }

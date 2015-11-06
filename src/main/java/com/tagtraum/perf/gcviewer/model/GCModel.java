@@ -22,6 +22,7 @@ import com.tagtraum.perf.gcviewer.math.IntData;
 import com.tagtraum.perf.gcviewer.math.RegressionLine;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.CollectionType;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Generation;
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 
 /**
  * Collection of GCEvents.
@@ -232,9 +233,14 @@ public class GCModel implements Serializable {
             if (url.getProtocol().startsWith("http")) {
                 ((HttpURLConnection)urlConnection).setRequestMethod("HEAD");
             }
-            try (InputStream inputStream = urlConnection.getInputStream()) {
+            InputStream inputStream = null;
+            try  {
+                inputStream = urlConnection.getInputStream();
                 fileInformation.length = urlConnection.getContentLength();
                 fileInformation.lastModified = urlConnection.getLastModified();
+            }
+            finally {
+                ResourceUtils.closeQuitly(inputStream);
             }
         }
         catch (IOException e) {

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,8 +58,11 @@ public class SimpleGcWriterTest {
     @Test
     public void exportLocaleDe() throws Exception {
         Locale.setDefault(new Locale("de", "ch"));
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                SimpleGcWriter writer = new SimpleGcWriter(outputStream)) {
+        ByteArrayOutputStream outputStream = null;
+        SimpleGcWriter writer = null;
+        try {
+            outputStream = new ByteArrayOutputStream();
+            writer = new SimpleGcWriter(outputStream);
             
             writer.write(gcModel);
             
@@ -75,13 +79,20 @@ public class SimpleGcWriterTest {
             assertEquals("number of parts in line 2", 3, secondLine.length);
             assertEquals("name of event 2", "InitialMarkGC", secondLine[0]);
         }
+        finally {
+            ResourceUtils.closeQuitly(outputStream);
+            ResourceUtils.closeQuitly(writer);
+        }
     }
 
     @Test
     public void exportLocaleSv() throws Exception {
         Locale.setDefault(new Locale("sv", "se"));
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                SimpleGcWriter writer = new SimpleGcWriter(outputStream)) {
+        ByteArrayOutputStream outputStream = null;
+        SimpleGcWriter writer = null;
+        try {
+            outputStream = new ByteArrayOutputStream();
+            writer = new SimpleGcWriter(outputStream);
         
             writer.write(gcModel);
             
@@ -91,6 +102,10 @@ public class SimpleGcWriterTest {
             String[] firstLine = lines[0].split(" ");
             assertEquals("number of parts in line 1", 3, firstLine.length);
             assertEquals("timestamp", "0.677000", firstLine[1]);
+        }
+        finally {
+            ResourceUtils.closeQuitly(outputStream);
+            ResourceUtils.closeQuitly(writer);
         }
     }
 }

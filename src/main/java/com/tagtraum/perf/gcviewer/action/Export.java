@@ -19,6 +19,7 @@ import com.tagtraum.perf.gcviewer.exp.DataWriterType;
 import com.tagtraum.perf.gcviewer.exp.impl.DataWriterFactory;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.LocalisationHelper;
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 
 /**
  *
@@ -85,12 +86,16 @@ public class Export extends AbstractAction {
                         LocalisationHelper.getString("fileexport_dialog_title"),
                         JOptionPane.YES_NO_OPTION)) {
 
-            try (DataWriter writer = DataWriterFactory.getDataWriter(file, dataWriterType)) {
+            DataWriter writer = null;
+            try {
+                writer = DataWriterFactory.getDataWriter(file, dataWriterType);
                 writer.write(model);
             }
             catch (Exception ioe) {
                 //ioe.printStackTrace();
                 JOptionPane.showMessageDialog(gcViewer, ioe.getLocalizedMessage(), LocalisationHelper.getString("fileexport_dialog_write_file_failed"), JOptionPane.ERROR_MESSAGE);
+            } finally {
+                ResourceUtils.closeQuitly(writer);
             }
         }
     }

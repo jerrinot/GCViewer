@@ -12,6 +12,7 @@ import com.tagtraum.perf.gcviewer.exp.impl.DataWriterFactory;
 import com.tagtraum.perf.gcviewer.imp.DataReaderException;
 import com.tagtraum.perf.gcviewer.imp.DataReaderFacade;
 import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 
 /**
  * Main class of GCViewer. Parses command line parameters if there are any and either remains
@@ -76,8 +77,12 @@ public class GCViewer {
     }
 
 	private void exportType(GCModel model, String summaryFilePath, DataWriterType type) throws IOException {
-        try (DataWriter summaryWriter = DataWriterFactory.getDataWriter(new File(summaryFilePath), type)) {
+        DataWriter summaryWriter = null;
+        try {
+            summaryWriter = DataWriterFactory.getDataWriter(new File(summaryFilePath), type);
             summaryWriter.write(model);
+        } finally {
+            ResourceUtils.closeQuitly(summaryWriter);
         }
     }
 
