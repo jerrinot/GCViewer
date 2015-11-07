@@ -20,7 +20,7 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
 public class SimpleChartRenderer {
     private static final Logger LOGGER = Logger.getLogger(SimpleChartRenderer.class.getName());
 
-    public void render(GCModel model, FileOutputStream outputStream) throws IOException {
+    public void render(GCModel model, OutputStream outputStream) throws IOException {
         GCPreferences gcPreferences = new GCPreferences();
         gcPreferences.load();
         Dimension d = new Dimension(gcPreferences.getWindowWidth(), gcPreferences.getWindowHeight());
