@@ -131,7 +131,8 @@ public class DataReaderFacade {
                         ? HttpUrlConnectionHelper.openInputStream((HttpURLConnection)conn, HttpUrlConnectionHelper.GZIP)
                         : conn.getInputStream();
         final DataReader reader = factory.getDataReader(in);
-        final GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         return model;
     }
 

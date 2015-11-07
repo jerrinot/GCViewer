@@ -21,7 +21,8 @@ public class TestDataReaderIBMi5OS1_4_2 {
     public void testParse1() throws Exception {
         final InputStream in = UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_IBM, "SampleIBMi5OS1_4_2.txt");
         final DataReader reader = new DataReaderIBMi5OS1_4_2(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("number of events", 53, model.size());
     }

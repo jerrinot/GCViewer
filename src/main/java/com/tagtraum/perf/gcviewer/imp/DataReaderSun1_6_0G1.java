@@ -148,13 +148,12 @@ public class DataReaderSun1_6_0G1 extends AbstractDataReaderSun {
     }
 
     @Override
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun 1.6.x / 1.7.x G1 format...");
 
         BufferedReader in = null;
         try {
             in = this.in;
-            GCModel model = new GCModel();
             // TODO what is this for?
             model.setFormat(GCModel.Format.SUN_X_LOG_GC);
             String line;
@@ -332,7 +331,6 @@ public class DataReaderSun1_6_0G1 extends AbstractDataReaderSun {
                 }
                 parsePosition.setIndex(0);
             }
-            return model;
         }
         finally {
             if (LOG.isLoggable(Level.INFO)) {

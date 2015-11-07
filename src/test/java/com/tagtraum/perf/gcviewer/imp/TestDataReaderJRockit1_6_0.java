@@ -40,7 +40,8 @@ public class TestDataReaderJRockit1_6_0 {
 
         InputStream in = getInputStream("SampleJRockit1_6_gc_mode_singleparcon.txt");
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("count", 42, model.size());
         
@@ -67,7 +68,8 @@ public class TestDataReaderJRockit1_6_0 {
         
         assertTrue("should be DataReaderJRockit1_6_0 (but was " + reader.toString() + ")", reader instanceof DataReaderJRockit1_6_0);
 
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("count", 52, model.size());
         
@@ -91,7 +93,8 @@ public class TestDataReaderJRockit1_6_0 {
     public void testGenConVerbose() throws Exception {
         InputStream in = getInputStream("SampleJRockit1_6_verbose_gc_mode_gencon.txt");
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("count", 15, model.size());
     }
@@ -105,7 +108,8 @@ public class TestDataReaderJRockit1_6_0 {
 
         InputStream in = getInputStream("SampleJRockit1_6_33_gc_mode_genpar_verbosenursery.txt");
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("count", 3, model.size());
         
@@ -153,7 +157,8 @@ public class TestDataReaderJRockit1_6_0 {
                        .getBytes());
         
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         // 3 INFO events:
         // Reading JRockit ... format
@@ -172,7 +177,8 @@ public class TestDataReaderJRockit1_6_0 {
                         .getBytes());
         
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("count", 1, model.size());
         

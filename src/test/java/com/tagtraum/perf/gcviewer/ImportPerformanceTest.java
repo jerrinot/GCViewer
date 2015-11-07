@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.tagtraum.perf.gcviewer.imp.DataReader;
 import com.tagtraum.perf.gcviewer.imp.DataReaderFactory;
 import com.tagtraum.perf.gcviewer.math.IntData;
+import com.tagtraum.perf.gcviewer.model.GCModel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +21,8 @@ public class ImportPerformanceTest {
         for (int i=0; i<10; i++) {
             long start = System.currentTimeMillis();
             DataReader dataReader = new DataReaderFactory().getDataReader(new FileInputStream(args[0]));
-            dataReader.read();
+            GCModel model = new GCModel();
+            dataReader.read(model);
             performanceData.add((int)(System.currentTimeMillis() - start));
         }
         

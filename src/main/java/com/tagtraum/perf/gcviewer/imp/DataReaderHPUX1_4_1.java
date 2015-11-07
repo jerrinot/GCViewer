@@ -36,10 +36,9 @@ public class DataReaderHPUX1_4_1 implements DataReader {
         this.in = new LineNumberReader(new InputStreamReader(in));
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading HP-UX 1.4.1-1.4.2 format...");
         try {
-            final GCModel model = new GCModel();
             model.setFormat(GCModel.Format.SUN_X_LOG_GC);
             String line = null;
             GCEvent event = null;
@@ -206,7 +205,6 @@ public class DataReaderHPUX1_4_1 implements DataReader {
                 event.add(permEvent);
                 model.add(event);
             }
-            return model;
         } finally {
             if (in != null)
                 try {

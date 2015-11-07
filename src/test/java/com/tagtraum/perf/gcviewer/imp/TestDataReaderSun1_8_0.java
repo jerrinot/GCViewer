@@ -38,7 +38,8 @@ public class TestDataReaderSun1_8_0 {
 
         InputStream in = getInputStream("SampleSun1_8_0ParallelPrintHeapAtGC.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_8);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("gc pause sum", model.getPause().getSum(), closeTo(0.0103603, 0.000000001));
 
@@ -54,7 +55,8 @@ public class TestDataReaderSun1_8_0 {
 
         InputStream in = getInputStream("SampleSun1_8_0CMS_ScavengeBeforeRemark_HeapAtGc.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_8);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("gc count", model.size(), is(2));
         assertThat("scavenge before remark event", model.get(0).getPause(), closeTo(0.0000778, 0.000000001));
@@ -72,7 +74,8 @@ public class TestDataReaderSun1_8_0 {
 
         InputStream in = getInputStream("SampleSun1_8_0CMS_ScavengeBR_HeapAtGC_TenuringDist_PrintFLS.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_8);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("gc count", model.size(), is(2));
         assertThat("scavenge before remark event", model.get(0).getPause(), closeTo(0.1306264, 0.000000001));
@@ -90,7 +93,8 @@ public class TestDataReaderSun1_8_0 {
 
         InputStream in = getInputStream("SampleSun1_8_0Parallel_Tenuring_PrintGCCause.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_8);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("gc count", model.size(), is(5));
         assertThat("gc name", model.get(0).getTypeAsString(), equalTo("GC (Allocation Failure); PSYoungGen"));
@@ -108,7 +112,8 @@ public class TestDataReaderSun1_8_0 {
 
         InputStream in = getInputStream("SampleSun1_8_0Parallel_Apple.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_8);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("gc count", model.size(), is(6));
 

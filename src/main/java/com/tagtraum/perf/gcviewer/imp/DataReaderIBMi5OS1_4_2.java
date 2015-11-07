@@ -43,11 +43,10 @@ public class DataReaderIBMi5OS1_4_2 implements DataReader {
      * 
      * @throws IOException When reading the inputstream fails.
      */
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading IBM i5/OS 1.4.2 format...");
         try {
         	// Initialize model
-            final GCModel model = new GCModel();
             model.setFormat(GCModel.Format.IBM_VERBOSE_GC);
             
             // Initialize local variables
@@ -126,7 +125,6 @@ public class DataReaderIBMi5OS1_4_2 implements DataReader {
                     default:
                 }
             }
-            return model;
         } finally {
             if (in != null)
                 try {

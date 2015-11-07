@@ -20,7 +20,8 @@ public class TestDataReaderIBM1_2_2 {
     public void testParse1() throws Exception {
         InputStream in = UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_IBM, "SampleIBM1_2_2.txt");
         DataReader reader = new DataReaderIBM1_3_0(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("number of events", 28, model.size());
     }

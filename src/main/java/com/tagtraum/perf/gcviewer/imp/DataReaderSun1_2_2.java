@@ -28,10 +28,9 @@ public class DataReaderSun1_2_2 implements DataReader {
         this.in = new BufferedReader(new InputStreamReader(in));
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun 1.2.2 format...");
         try {
-            GCModel model = new GCModel();
             model.setFormat(GCModel.Format.SUN_1_2_2VERBOSE_GC);
             String line = null;
             boolean timeline = false;
@@ -102,7 +101,6 @@ public class DataReaderSun1_2_2 implements DataReader {
                 }
             }
 
-            return model;
         } finally {
             if (in != null)
                 try {

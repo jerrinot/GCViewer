@@ -36,7 +36,8 @@ public class TestDataReaderSun1_4_0 {
     public void testAdaptiveSizePolicy() throws Exception {
         InputStream in = getInputStream("SampleSun1_4_0AdaptiveSizePolicy.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_4);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("number of events", 9, model.getPause().getN());
         assertEquals("number of full gcs", 3, model.getFullGCPause().getN());
@@ -59,7 +60,8 @@ public class TestDataReaderSun1_4_0 {
         AbstractGCEvent<GCEvent> event6 = new GCEvent(5, 52471, 22991, 75776, 1.0754938d, AbstractGCEvent.Type.GC);
         ByteArrayInputStream in = new ByteArrayInputStream("0.0: [GC 8968K->8230K(10912K), 0.0037192 secs]\r\n1.0: [GC 8968K->8230K(10912K), 0.0037192 secs]\r\n2.0: [GC 8968K->8230K(10912K), 0.0037192 secs]\r\n3.0: [Full GC 10753K->6046K(10912K), 0.3146707 secs]\r\n4.0: [Inc GC 10753K->6046K(10912K), 0.3146707 secs]\r\n5.0: [GC Desired survivor size 3342336 bytes, new threshold 1 (max 32) - age   1:  6684672 bytes,  6684672 total 52471K->22991K(75776K), 1.0754938 secs]".getBytes());
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_4);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         assertEquals("model size", 6, model.size());
         Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents();
         AbstractGCEvent<?> event = i.next();
@@ -83,7 +85,8 @@ public class TestDataReaderSun1_4_0 {
     public void testNoFullGC() throws Exception {
         InputStream in = getInputStream("SampleSun1_4_2NoFullGC.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_4);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         // we just look at the first six...
         /*
         0.000: [GC 511K->180K(1984K), 0.0095672 secs]
@@ -122,7 +125,8 @@ public class TestDataReaderSun1_4_0 {
     public void testPrintGCDetails() throws Exception {
         InputStream in = getInputStream("SampleSun1_4_2PrintGCDetails.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_4);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         /*
         0.000: [GC 0.000: [DefNew: 1534K->128K(1664K), 0.0082759 secs] 1534K->276K(16256K), 0.0084272 secs]
         11.653: [Full GC 11.653: [Tenured: 5634K->5492K(14592K), 0.2856516 secs] 6560K->5492K(16256K), 0.2858561 secs]
@@ -161,7 +165,8 @@ public class TestDataReaderSun1_4_0 {
 
         InputStream in = getInputStream("SampleSun1_4_0PSPrintHeapAtGC.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_4);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("GC count", 2, model.size());
         assertEquals("GC pause", 0.0083579, model.getGCPause().getMax(), 0.00000001);

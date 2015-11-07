@@ -112,8 +112,7 @@ public class TestAbstractDataReaderSun {
         }
         
         @Override
-        public GCModel read() throws IOException {
-            return null;
+        public void read(GCModel model) throws IOException {
         }
     
         @Override

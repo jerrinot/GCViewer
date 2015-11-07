@@ -26,7 +26,8 @@ public class TestDataReaderHPUX1_4_1 {
     public void testParse1() throws Exception {
         final InputStream in = UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_HP, "SampleHP-UX1_4_1.txt");
         final DataReader reader = new DataReaderHPUX1_4_1(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("number of events", 4, model.size());
     }

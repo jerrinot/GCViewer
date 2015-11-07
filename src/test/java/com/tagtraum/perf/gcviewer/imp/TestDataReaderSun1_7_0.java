@@ -41,7 +41,8 @@ public class TestDataReaderSun1_7_0 {
                 "111.080: [GC (Allocation Failure)111.080: [ParNew: 140365K->605K(157248K), 0.0034070 secs] 190158K->50399K(506816K), 0.0035370 secs] [Times: user=0.02 sys=0.00, real=0.00 secs]"
                        .getBytes());
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_6);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("GC count", 1, model.size());
         assertEquals("GC pause", 0.0035370, model.getGCPause().getMax(), 0.0000001);
@@ -59,7 +60,8 @@ public class TestDataReaderSun1_7_0 {
                 + "\n[PSYoungGen: 16430K->2657K(19136K)] 16430K->15759K(62848K), 0.0109373 secs] [Times: user=0.05 sys=0.02, real=0.02 secs]"
                        ).getBytes());
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_6);
-                GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("GC count", 1, model.size());
         assertEquals("GC pause", 0.0109373, model.getGCPause().getMax(), 0.0000001);
@@ -78,7 +80,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_6);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("GC count", 1, model.size());
         assertEquals("GC pause", 0.0115757, model.getGCPause().getMax(), 0.00000001);
@@ -95,7 +98,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_6);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("GC count", 1, model.size());
         assertEquals("GC pause", 0.0087315, model.getFullGCPause().getMax(), 0.00000001);
@@ -108,7 +112,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_6);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("GC count", 1, model.size());
         assertEquals("type name", "GC; CMS-remark", model.get(0).getTypeAsString());
@@ -122,7 +127,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_6);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("GC count", 1, model.size());
         assertEquals("type name", "GC; ParNew", model.get(0).getTypeAsString());
@@ -141,7 +147,8 @@ public class TestDataReaderSun1_7_0 {
 
         final InputStream in = getInputStream("SampleSun1_7_0ParallelAdaptiveSizeReference.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("count", model.size(), is(1));
         GCEvent event = (GCEvent) model.get(0);
@@ -160,7 +167,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(1));
         assertThat("type name", model.get(0).getTypeAsString(), equalTo("GC (Allocation Failure); PSYoungGen"));
@@ -177,7 +185,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(1));
         assertThat("type name", model.get(0).getTypeAsString(), equalTo("GC (Allocation Failure); PSYoungGen"));
@@ -191,7 +200,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(1));
         assertThat("type name", model.get(0).getTypeAsString(), equalTo("GC (Allocation Failure); DefNew"));
@@ -222,7 +232,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(2));
         Iterator<GCEvent> eventIterator = model.getGCEvents();
@@ -245,7 +256,8 @@ public class TestDataReaderSun1_7_0 {
 
         final InputStream in = getInputStream("SampleSun1_7_0CMSTenuringDistributionInitiationStatistics.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(1));
         assertThat("type name", model.get(0).getTypeAsString(), equalTo("GC; ParNew (promotion failed); CMS; CMS Perm"));
@@ -268,7 +280,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(2));
         assertThat("type name (0)", model.get(0).getTypeAsString(), equalTo("GC; PSYoungGen"));
@@ -296,7 +309,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0Parallel_Tenuring_PrintGCCause.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("gc count", model.size(), is(2));
         assertThat("gc name", model.get(0).getTypeAsString(), equalTo("GC (Allocation Failure); PSYoungGen"));
@@ -314,7 +328,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0_51_CMS_PrintApplStoppedTime.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(14));
         assertThat("application stopped count", model.getVmOperationPause().getN(), is(2));
@@ -339,7 +354,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0_51_CMS_PrintApplStoppedTime_TenuringDist.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(19));
         assertThat("application stopped count", model.getVmOperationPause().getN(), is(4));
@@ -379,7 +395,8 @@ public class TestDataReaderSun1_7_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(2));
         assertThat("ParNew timestamp", model.get(0).getTimestamp(), closeTo(33395.153, 0.00001));
@@ -404,7 +421,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0CmsPrintFlsStats1.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(3));
         assertThat("event 1 pause", model.get(0).getPause(), closeTo(0.0030039, 0.00000001));
@@ -424,7 +442,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0CmsPrintFlsStats2.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(5));
         assertThat("event 1 pause", model.get(0).getPause(), closeTo(0.0054252, 0.00000001));
@@ -447,7 +466,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0CmsPrintFlsStats3.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(4));
         assertThat("event 1 pause", model.get(1).getPause(), closeTo(0.0252550, 0.00000001));
@@ -465,7 +485,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0CMS_PrintTenuringDistributionPromotionFailure.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(7));
         assertThat("pause", model.get(4).getPause(), closeTo(129.9468220, 0.00000001));
@@ -481,7 +502,8 @@ public class TestDataReaderSun1_7_0 {
 
         InputStream in = getInputStream("SampleSun1_7_0PS_Adaptive_Tenuring_AppStopped.txt");
         DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_7);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("GC count", model.size(), is(3));
         assertThat("pause", model.get(1).getPause(), closeTo(0.0082230, 0.00000001));

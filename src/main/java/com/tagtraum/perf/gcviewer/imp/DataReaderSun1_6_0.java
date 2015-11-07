@@ -208,13 +208,12 @@ public class DataReaderSun1_6_0 extends AbstractDataReaderSun {
         super(in, gcLogType);
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun / Oracle 1.4.x / 1.5.x / 1.6.x / 1.7.x / 1.8.x format...");
 
         BufferedReader in = null;
         try {
             in = this.in;
-            GCModel model = new GCModel();
             model.setFormat(GCModel.Format.SUN_X_LOG_GC);
             Matcher mixedLineMatcher = linesMixedPattern.matcher("");
             Matcher adaptiveSizePolicyMatcher = adaptiveSizePolicyPattern.matcher("");
@@ -420,7 +419,6 @@ public class DataReaderSun1_6_0 extends AbstractDataReaderSun {
                     beginningOfLine.clear();
                 }
             }
-            return model;
         }
         finally {
             if (LOG.isLoggable(Level.INFO)) LOG.info("Done reading.");

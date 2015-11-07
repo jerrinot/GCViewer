@@ -40,7 +40,8 @@ public class TestDataReaderSun1_8_0G1 {
         DATA_READER_FACTORY_LOGGER.addHandler(handler);
 
         DataReader reader = getDataReader("SampleSun1_8_0G1_ConcurrentCycle.txt");
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("size", model.size(), is(10));
 
@@ -70,7 +71,8 @@ public class TestDataReaderSun1_8_0G1 {
                         .getBytes());
 
         DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_8);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         GCEvent event = (GCEvent) model.get(0);
         assertThat("footprint", event.getTotal(), is(12*1024*1024));
@@ -91,7 +93,8 @@ public class TestDataReaderSun1_8_0G1 {
         DATA_READER_FACTORY_LOGGER.addHandler(handler);
 
         DataReader reader = getDataReader("SampleSun1_8_0G1PrintGCCausePrintTenuringDistribution.txt");
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("gc pause sum", 16.7578613, model.getPause().getSum(), 0.000000001);
 
@@ -106,7 +109,8 @@ public class TestDataReaderSun1_8_0G1 {
         DATA_READER_FACTORY_LOGGER.addHandler(handler);
 
         DataReader reader = getDataReader("SampleSun1_8_0G1PrintHeapAtGc.txt");
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("gc pause sum", 0.0055924, model.getPause().getSum(), 0.000000001);
 
@@ -121,7 +125,8 @@ public class TestDataReaderSun1_8_0G1 {
         DATA_READER_FACTORY_LOGGER.addHandler(handler);
 
         DataReader reader = getDataReader("SampleSun1_8_0G1HumongousMixed.txt");
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("number of events", model.size(), is(1));
         assertThat("number of errors", handler.getCount(), is(2));
@@ -135,7 +140,8 @@ public class TestDataReaderSun1_8_0G1 {
         DATA_READER_FACTORY_LOGGER.addHandler(handler);
 
         DataReader reader = getDataReader("SampleSun1_8_0G1extended-remark.txt");
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertThat("number of events", model.size(), is(1));
         assertThat("number of errors", handler.getCount(), is(0));

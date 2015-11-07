@@ -29,10 +29,9 @@ public class DataReaderIBM1_3_0 implements DataReader {
         this.in = new LineNumberReader(new InputStreamReader(in));
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading IBM 1.3.0 format...");
         try {
-            GCModel model = new GCModel();
             model.setFormat(GCModel.Format.IBM_VERBOSE_GC);
             int state = 0;
             String line = null;
@@ -83,7 +82,6 @@ public class DataReaderIBM1_3_0 implements DataReader {
                     default:
                 }
             }
-            return model;
         } finally {
             if (in != null)
                 try {

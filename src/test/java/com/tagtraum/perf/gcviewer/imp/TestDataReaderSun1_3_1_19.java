@@ -22,7 +22,8 @@ public class TestDataReaderSun1_3_1_19 {
     	
     	final InputStream in = UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_OPENJDK, "SampleSun1_3_1_19SunOS.txt");
         final DataReader reader = new DataReaderSun1_3_1(in, GcLogType.SUN1_3_1);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("throughput", 95.21, model.getThroughput(), 0.01);
     }

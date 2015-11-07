@@ -31,11 +31,10 @@ public class DataReaderSun1_3_1 extends AbstractDataReaderSun implements DataRea
         super(in, gcLogType);
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun 1.3.1 format...");
         try {
             count = 0;
-            GCModel model = new GCModel();
             model.setFormat(GCModel.Format.SUN_VERBOSE_GC);
             List<StringBuilder> lineStack = new ArrayList<StringBuilder>();
             int i;
@@ -59,7 +58,6 @@ public class DataReaderSun1_3_1 extends AbstractDataReaderSun implements DataRea
                     if (line != null) line.append(c);
                 }
             }
-            return model;
         } finally {
             if (in != null) try {
                 in.close();

@@ -30,7 +30,8 @@ public class TestDataReaderSun1_5_0 {
     public void testAdaptiveSizePolicy() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0AdaptiveSizePolicy.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("number of events", 6, model.getPause().getN());
         assertEquals("number of full gcs", 1, model.getFullGCPause().getN());
@@ -44,7 +45,8 @@ public class TestDataReaderSun1_5_0 {
     public void testCMSPrintGCDetails() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0CMS_PrintGCDetails.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("size", 515, model.size());
         assertEquals("throughput", 88.2823289184, model.getThroughput(), 0.00000001);
@@ -57,7 +59,8 @@ public class TestDataReaderSun1_5_0 {
     public void testParallelOldGC() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0ParallelOldGC.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("size", 1, model.size());
         assertEquals("gc pause", 27.0696262, model.getFullGCPause().getMax(), 0.000001);
@@ -67,7 +70,8 @@ public class TestDataReaderSun1_5_0 {
     public void testCMSIncrementalPacing() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0CMS_IncrementalPacing.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("size", 810, model.size());
         assertEquals("throughput", 94.181240109114, model.getThroughput(), 0.00000001);
@@ -80,7 +84,8 @@ public class TestDataReaderSun1_5_0 {
     public void testPromotionFailure() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0PromotionFailure.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("size", 6, model.size());
         assertEquals("throughput", 98.0937624615, model.getThroughput(), 0.00000001);
@@ -91,7 +96,8 @@ public class TestDataReaderSun1_5_0 {
     public void testCMSConcurrentModeFailure() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0ConcurrentModeFailure.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         
         assertEquals("size", 3417, model.size());
         assertEquals("throughput", 78.558339113, model.getThroughput(), 0.00000001);
@@ -107,7 +113,8 @@ public class TestDataReaderSun1_5_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
 
         assertEquals("gc count", 2, model.size());
         assertEquals("full gc pause", 0.0312110, model.getFullGCPause().getMax(), 0.000001);

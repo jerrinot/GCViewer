@@ -36,7 +36,8 @@ public class TestDataReaderSun1_2_2 {
                 "<GC: 721 milliseconds since last GC>\n" +
                 "<GC: expanded object space by 839680 to 1678536 bytes, 74% free>\n").getBytes());
         DataReader reader = new DataReaderSun1_2_2(in);
-        GCModel model = reader.read();
+        GCModel model = new GCModel();
+        reader.read(model);
         assertEquals(3, model.size());
         Iterator<GCEvent> i = model.getGCEvents();
         GCEvent event = i.next();

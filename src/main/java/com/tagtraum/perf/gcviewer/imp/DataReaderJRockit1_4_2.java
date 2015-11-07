@@ -29,11 +29,10 @@ public class DataReaderJRockit1_4_2 implements DataReader {
         this.in = new LineNumberReader(new InputStreamReader(in));
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading JRockit 1.4.2 format...");
         boolean gcSummary = false;
         try {
-            GCModel model = new GCModel();
             model.setFormat(GCModel.Format.SUN_X_LOG_GC);
             String line = null;
             GCEvent event = null;
@@ -145,7 +144,6 @@ public class DataReaderJRockit1_4_2 implements DataReader {
                     event.add(detailEvent);
                 }
             }
-            return model;
         } finally {
             if (in != null)
                 try {

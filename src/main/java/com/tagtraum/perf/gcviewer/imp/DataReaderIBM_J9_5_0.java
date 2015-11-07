@@ -41,11 +41,10 @@ public class DataReaderIBM_J9_5_0 implements DataReader {
     	 this.in = in;
     }
 
-    public GCModel read() throws IOException {
+    public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading IBM J9 5.0 format...");
         try {
-            final GCModel model = new GCModel();
-            model.setFormat(GCModel.Format.IBM_VERBOSE_GC);           
+            model.setFormat(GCModel.Format.IBM_VERBOSE_GC);
             DefaultHandler handler = new IBMJ9SAXHandler(model);
 
             // Use the default (non-validating) parser
@@ -70,9 +69,6 @@ public class DataReaderIBM_J9_5_0 implements DataReader {
                     throw exception;
 				}
 			}
-            
-            return model;
-  
         } finally {
             if (in != null)
                 try {
