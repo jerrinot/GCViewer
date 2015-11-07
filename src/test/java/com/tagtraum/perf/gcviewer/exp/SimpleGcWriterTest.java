@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +14,7 @@ import com.tagtraum.perf.gcviewer.exp.impl.SimpleGcWriter;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.ConcurrentGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  * Tests the export format of {@link SimpleGcWriter}.
@@ -49,7 +50,7 @@ public class SimpleGcWriterTest {
         concGCEvent.setTimestamp(0.708);
         concGCEvent.setType(AbstractGCEvent.Type.CMS_CONCURRENT_MARK_START);
         
-        gcModel = new GCModel();
+        gcModel = new DefaultGCModel();
         gcModel.add(gcEvent);
         gcModel.add(gcEvent2);
         gcModel.add(concGCEvent);

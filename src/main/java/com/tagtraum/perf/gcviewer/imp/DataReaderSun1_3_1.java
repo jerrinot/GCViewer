@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.ParseInformation;
 
@@ -35,7 +36,7 @@ public class DataReaderSun1_3_1 extends AbstractDataReaderSun implements DataRea
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun 1.3.1 format...");
         try {
             count = 0;
-            model.setFormat(GCModel.Format.SUN_VERBOSE_GC);
+            model.setFormat(DefaultGCModel.Format.SUN_VERBOSE_GC);
             List<StringBuilder> lineStack = new ArrayList<StringBuilder>();
             int i;
             StringBuilder line = null;

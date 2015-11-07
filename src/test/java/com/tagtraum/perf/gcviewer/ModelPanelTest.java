@@ -1,10 +1,11 @@
 package com.tagtraum.perf.gcviewer;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  * Test {@link ModelPanel}. The tests all just check that no Exception occurs. 
@@ -16,7 +17,7 @@ public class ModelPanelTest {
     
     @Test
     public void testEmptyModel() {
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         ModelPanel panel = new ModelPanel();
         panel.setModel(model);
     }
@@ -31,7 +32,7 @@ public class ModelPanelTest {
         event.setPostUsed(400);
         event.setTotal(1024);
         
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         model.add(event);
         
         ModelPanel panel = new ModelPanel();
@@ -40,7 +41,7 @@ public class ModelPanelTest {
 
     @Test
     public void testTwoElementsModel() {
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
 
         GCEvent event = new GCEvent();
         event.setTimestamp(0.5);

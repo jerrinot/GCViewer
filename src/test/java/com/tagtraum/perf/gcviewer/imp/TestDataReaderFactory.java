@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.ResourceUtils;
 import org.junit.Rule;
@@ -65,7 +66,7 @@ public class TestDataReaderFactory {
 	        DataReader reader = new DataReaderFactory().getDataReader(in);
     	    assertDataReader("getDataReader() reading " + sampleGz, DataReaderSun1_6_0.class, reader.getClass());
 
-            GCModel model = new GCModel();
+            GCModel model = new DefaultGCModel();
             reader.read(model);
             assertEquals("# events", 2, model.size());
         }
@@ -83,7 +84,7 @@ public class TestDataReaderFactory {
             DataReader reader = new DataReaderFactory().getDataReader(in);
             assertDataReader("getDataReader() reading " + sampleFile, DataReaderSun1_6_0G1.class, reader.getClass());
 
-            GCModel model = new GCModel();
+            GCModel model = new DefaultGCModel();
             reader.read(model);
             assertEquals("# events", 55, model.size());
         }

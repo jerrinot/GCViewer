@@ -5,11 +5,12 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  *
@@ -36,7 +37,7 @@ public class TestDataReaderSun1_2_2 {
                 "<GC: 721 milliseconds since last GC>\n" +
                 "<GC: expanded object space by 839680 to 1678536 bytes, 74% free>\n").getBytes());
         DataReader reader = new DataReaderSun1_2_2(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         assertEquals(3, model.size());
         Iterator<GCEvent> i = model.getGCEvents();

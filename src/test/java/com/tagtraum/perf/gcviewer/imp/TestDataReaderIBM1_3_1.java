@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  *
@@ -20,7 +21,7 @@ public class TestDataReaderIBM1_3_1 {
     public void testParse1() throws Exception {
         InputStream in = UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_IBM, "SampleIBM1_3_1.txt");
         DataReader reader = new DataReaderIBM1_3_1(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("number of events", 21, model.size());

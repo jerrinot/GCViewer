@@ -6,11 +6,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  *
@@ -28,7 +29,7 @@ public class TestDataReaderSun1_3_1 {
         AbstractGCEvent<GCEvent> event4 = new GCEvent(3, 10753, 6046, 10912, 0.3146707d, AbstractGCEvent.Type.FULL_GC);
         ByteArrayInputStream in = new ByteArrayInputStream("[GC 8968K->8230K(10912K), 0.0037192 secs]\r\n[GC 8968K->8230K(10[GC 8968K->8230K(10912K), 0.0037192 secs]912K), 0.0037192 secs]\r\n[Full GC 10753K->6046K(10912K), 0.3146707 secs]".getBytes());
         DataReader reader = new DataReaderSun1_3_1(in, GcLogType.SUN1_3_1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         assertTrue(model.size() == 4);
         Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents();

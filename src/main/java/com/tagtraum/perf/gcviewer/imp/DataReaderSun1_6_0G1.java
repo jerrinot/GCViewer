@@ -21,6 +21,7 @@ import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import com.tagtraum.perf.gcviewer.model.ConcurrentGCEvent;
 import com.tagtraum.perf.gcviewer.model.G1GcEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.VmOperationEvent;
 import com.tagtraum.perf.gcviewer.util.NumberParser;
@@ -155,7 +156,7 @@ public class DataReaderSun1_6_0G1 extends AbstractDataReaderSun {
         try {
             in = this.in;
             // TODO what is this for?
-            model.setFormat(GCModel.Format.SUN_X_LOG_GC);
+            model.setFormat(DefaultGCModel.Format.SUN_X_LOG_GC);
             String line;
             ParseInformation parsePosition = new ParseInformation(0);
             Matcher gcPauseMatcher = PATTERN_GC_PAUSE.matcher("");

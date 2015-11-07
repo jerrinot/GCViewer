@@ -2,6 +2,7 @@ package com.tagtraum.perf.gcviewer.imp;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 
 import java.io.BufferedReader;
@@ -31,7 +32,7 @@ public class DataReaderSun1_2_2 implements DataReader {
     public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading Sun 1.2.2 format...");
         try {
-            model.setFormat(GCModel.Format.SUN_1_2_2VERBOSE_GC);
+            model.setFormat(DefaultGCModel.Format.SUN_1_2_2VERBOSE_GC);
             String line = null;
             boolean timeline = false;
             AbstractGCEvent<GCEvent> lastEvent = new GCEvent();

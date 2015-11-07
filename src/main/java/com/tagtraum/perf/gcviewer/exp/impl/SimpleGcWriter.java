@@ -30,7 +30,7 @@ public class SimpleGcWriter extends AbstractDataWriter {
     }
 
     /**
-     * @see com.tagtraum.perf.gcviewer.exp.AbstractDataWriter#write(com.tagtraum.perf.gcviewer.model.GCModel)
+     * @see com.tagtraum.perf.gcviewer.exp.AbstractDataWriter#write(GCModel)
      */
     @Override
     public void write(GCModel model) throws IOException {

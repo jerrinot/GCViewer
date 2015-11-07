@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.NumberParser;
 
@@ -47,7 +48,7 @@ public class DataReaderIBMi5OS1_4_2 implements DataReader {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading IBM i5/OS 1.4.2 format...");
         try {
         	// Initialize model
-            model.setFormat(GCModel.Format.IBM_VERBOSE_GC);
+            model.setFormat(DefaultGCModel.Format.IBM_VERBOSE_GC);
             
             // Initialize local variables
             int state = 0;

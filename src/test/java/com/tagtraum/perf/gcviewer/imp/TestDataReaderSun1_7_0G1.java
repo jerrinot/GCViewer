@@ -13,13 +13,14 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.math.DoubleData;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import com.tagtraum.perf.gcviewer.model.ConcurrentGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 public class TestDataReaderSun1_7_0G1 {
 
@@ -39,7 +40,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0-01_G1_young.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("gc pause", 0.00631825, model.getPause().getMax(), 0.000000001);
@@ -60,7 +61,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0-02_G1_young.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("gc pause", 0.14482200, model.getPause().getMax(), 0.000000001);
@@ -93,7 +94,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0_02_G1_young_datestamp.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("gc pause", 0.14482200, model.getPause().getMax(), 0.000000001);
@@ -117,7 +118,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0_12PrintAdaptiveSizePolicy.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("gc pause", 0.158757, model.getPause().getMax(), 0.000000001);
@@ -143,7 +144,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0_40PrintGCCause.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("gc pause", 0.077938, model.getPause().getMax(), 0.000000001);
@@ -168,7 +169,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0_40PrintGCCause2.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 1, model.size());
@@ -184,7 +185,7 @@ public class TestDataReaderSun1_7_0G1 {
         //  (initial-mark), 0.28645100 secs]
         final InputStream in = getInputStream("SampleSun1_7_0G1_DateStamp_Detailed-mixedLine1.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("nummber of events", 2, model.size());
@@ -207,7 +208,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1_DateStamp_Detailed-mixedLine2.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("number of events", 3, model.size());
@@ -225,7 +226,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1_DateStamp_Detailed-mixedLine3.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("nummber of events", 2, model.size());
@@ -248,7 +249,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("count", model.size(), is(2));
@@ -273,7 +274,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 2, model.size());
@@ -300,7 +301,7 @@ public class TestDataReaderSun1_7_0G1 {
         event.setPause(0.2);
         // but no memory information -> all values zero there
 
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         model.add(event);
 
         DoubleData initiatingOccupancyFraction = model.getCmsInitiatingOccupancyFraction();
@@ -315,7 +316,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 1, model.size());
@@ -330,7 +331,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 1, model.size());
@@ -346,7 +347,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1TenuringDistribution.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("number of events", 11, model.size());
@@ -368,7 +369,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0_02PrintApplicationTimeTenuringDistribution.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("number of events", 9, model.size());
@@ -398,7 +399,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 4, model.size());
@@ -417,7 +418,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1_PrintHeapAtGC_withConcurrent.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("number of events", 3, model.size());
@@ -444,7 +445,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0_40PrintHeapAtGC.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 1, model.size());
@@ -463,7 +464,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1AdaptiveSize_Reference.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("count", model.size(), is(3));
@@ -491,7 +492,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1PrintReferencePolicy.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("count", model.size(), is(1));
@@ -510,7 +511,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1_DetailsWoTimestamp.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("count", model.size(), is(1));
@@ -527,7 +528,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("count", 1, model.size());
@@ -544,7 +545,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream("SampleSun1_7_0G1_PauseWithComma.txt");
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("count", model.size(), is(1));
@@ -568,7 +569,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         final InputStream in = getInputStream(fileName);
         final DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("count", model.size(), is(1));
@@ -597,7 +598,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         InputStream in = getInputStream("SampleSun1_7_0_51_G1_PrintApplicationTimeTenuringDistribution.txt");
         DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("GC count", model.size(), is(3));
@@ -629,7 +630,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         InputStream in = getInputStream("SampleSun1_7_0G1_AppStopped_TenuringDist_Ergonomics_comma.txt");
         DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("GC count", model.size(), is(3));
@@ -661,7 +662,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         InputStream in = getInputStream("SampleSun1_7_0G1_MixedApplicationStopped.txt");
         DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("GC count", model.size(), is(5));
@@ -687,7 +688,7 @@ public class TestDataReaderSun1_7_0G1 {
                 .getBytes());
 
         DataReader reader = new DataReaderSun1_6_0G1(in, GcLogType.SUN1_7G1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertThat("gc pause", model.getFullGCPause().getMax(), closeTo(0.0434091, 0.000000001));

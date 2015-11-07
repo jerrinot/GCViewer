@@ -9,13 +9,14 @@ import java.util.Date;
 import java.util.Map;
 
 import com.tagtraum.perf.gcviewer.exp.AbstractDataWriter;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.FormattedValue;
 import com.tagtraum.perf.gcviewer.util.MemoryFormat;
 import com.tagtraum.perf.gcviewer.util.TimeFormat;
 
 /**
- * SummaryDataWriter writes a csv-file of quite a few parameters of the {@link GCModel} class.
+ * SummaryDataWriter writes a csv-file of quite a few parameters of the {@link DefaultGCModel} class.
  * <p>
  * It is intended to be used from a command line version of GCViewer.
  * <p>

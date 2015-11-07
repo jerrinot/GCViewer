@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.NumberParser;
 
@@ -32,7 +33,7 @@ public class DataReaderIBM1_3_0 implements DataReader {
     public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading IBM 1.3.0 format...");
         try {
-            model.setFormat(GCModel.Format.IBM_VERBOSE_GC);
+            model.setFormat(DefaultGCModel.Format.IBM_VERBOSE_GC);
             int state = 0;
             String line = null;
             AbstractGCEvent<GCEvent> lastEvent = new GCEvent();

@@ -1,5 +1,7 @@
 package com.tagtraum.perf.gcviewer;
 
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
+import com.tagtraum.perf.gcviewer.model.FilteringGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.renderer.*;
 import com.tagtraum.perf.gcviewer.util.TimeFormat;
@@ -52,7 +54,7 @@ public class ModelChartImpl extends JScrollPane implements ModelChart, ChangeLis
 
     public ModelChartImpl() {
         super();
-        this.model = new GCModel();
+        this.model = new FilteringGCModel(0);
         this.chart = new Chart();
         this.chart.setPreferredSize(new Dimension(0, 0));
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

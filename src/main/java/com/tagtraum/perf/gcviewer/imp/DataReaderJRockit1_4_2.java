@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Generation;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.NumberParser;
 
@@ -33,7 +34,7 @@ public class DataReaderJRockit1_4_2 implements DataReader {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading JRockit 1.4.2 format...");
         boolean gcSummary = false;
         try {
-            model.setFormat(GCModel.Format.SUN_X_LOG_GC);
+            model.setFormat(DefaultGCModel.Format.SUN_X_LOG_GC);
             String line = null;
             GCEvent event = null;
             int nurserySize = -1;

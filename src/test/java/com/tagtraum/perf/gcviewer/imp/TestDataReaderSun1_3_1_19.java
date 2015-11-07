@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  *
@@ -22,7 +23,7 @@ public class TestDataReaderSun1_3_1_19 {
     	
     	final InputStream in = UnittestHelper.getResourceAsStream(UnittestHelper.FOLDER_OPENJDK, "SampleSun1_3_1_19SunOS.txt");
         final DataReader reader = new DataReaderSun1_3_1(in, GcLogType.SUN1_3_1);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("throughput", 95.21, model.getThroughput(), 0.01);

@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import com.tagtraum.perf.gcviewer.log.TextAreaLogHandler;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
+import com.tagtraum.perf.gcviewer.model.FilteringGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.BuildInfoReader;
 import com.tagtraum.perf.gcviewer.util.LocalisationHelper;
@@ -131,7 +133,8 @@ public class DataReaderFacade {
                         ? HttpUrlConnectionHelper.openInputStream((HttpURLConnection)conn, HttpUrlConnectionHelper.GZIP)
                         : conn.getInputStream();
         final DataReader reader = factory.getDataReader(in);
-        GCModel model = new GCModel();
+        double filtered = Integer.getInteger("filtered", 0);
+        GCModel model = new FilteringGCModel(filtered);
         reader.read(model);
         return model;
     }

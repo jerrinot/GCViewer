@@ -1,5 +1,6 @@
 package com.tagtraum.perf.gcviewer;
 
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.Theories;
@@ -36,7 +37,7 @@ public class ModelChartImplTest {
         //given
         ModelChartImpl modelChart = new ModelChartImpl();
         GCPreferences preferences = new GCPreferences();
-        GCModel gcModel = Mockito.mock(GCModel.class);
+        GCModel gcModel = Mockito.mock(DefaultGCModel.class);
         Mockito.when(gcModel.hasDateStamp()).thenReturn(testCase.hasDateStamp());
         Mockito.when(gcModel.getFirstDateStamp()).thenReturn(new Date());
         preferences.setShowDateStamp(testCase.isShowDateStamp());

@@ -6,9 +6,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
 /**
  * Tests some cases for java 1.5 (using DataReaderSun1_6_0).
@@ -30,7 +31,7 @@ public class TestDataReaderSun1_5_0 {
     public void testAdaptiveSizePolicy() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0AdaptiveSizePolicy.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("number of events", 6, model.getPause().getN());
@@ -45,7 +46,7 @@ public class TestDataReaderSun1_5_0 {
     public void testCMSPrintGCDetails() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0CMS_PrintGCDetails.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("size", 515, model.size());
@@ -59,7 +60,7 @@ public class TestDataReaderSun1_5_0 {
     public void testParallelOldGC() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0ParallelOldGC.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("size", 1, model.size());
@@ -70,7 +71,7 @@ public class TestDataReaderSun1_5_0 {
     public void testCMSIncrementalPacing() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0CMS_IncrementalPacing.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("size", 810, model.size());
@@ -84,7 +85,7 @@ public class TestDataReaderSun1_5_0 {
     public void testPromotionFailure() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0PromotionFailure.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("size", 6, model.size());
@@ -96,7 +97,7 @@ public class TestDataReaderSun1_5_0 {
     public void testCMSConcurrentModeFailure() throws Exception {
         final InputStream in = getInputStream("SampleSun1_5_0ConcurrentModeFailure.txt");
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("size", 3417, model.size());
@@ -113,7 +114,7 @@ public class TestDataReaderSun1_5_0 {
                         .getBytes());
 
         final DataReader reader = new DataReaderSun1_6_0(in, GcLogType.SUN1_5);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
 
         assertEquals("gc count", 2, model.size());

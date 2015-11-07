@@ -11,10 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 
 /**
@@ -40,7 +41,7 @@ public class TestDataReaderJRockit1_6_0 {
 
         InputStream in = getInputStream("SampleJRockit1_6_gc_mode_singleparcon.txt");
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("count", 42, model.size());
@@ -68,7 +69,7 @@ public class TestDataReaderJRockit1_6_0 {
         
         assertTrue("should be DataReaderJRockit1_6_0 (but was " + reader.toString() + ")", reader instanceof DataReaderJRockit1_6_0);
 
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("count", 52, model.size());
@@ -93,7 +94,7 @@ public class TestDataReaderJRockit1_6_0 {
     public void testGenConVerbose() throws Exception {
         InputStream in = getInputStream("SampleJRockit1_6_verbose_gc_mode_gencon.txt");
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("count", 15, model.size());
@@ -108,7 +109,7 @@ public class TestDataReaderJRockit1_6_0 {
 
         InputStream in = getInputStream("SampleJRockit1_6_33_gc_mode_genpar_verbosenursery.txt");
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("count", 3, model.size());
@@ -157,7 +158,7 @@ public class TestDataReaderJRockit1_6_0 {
                        .getBytes());
         
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         // 3 INFO events:
@@ -177,7 +178,7 @@ public class TestDataReaderJRockit1_6_0 {
                         .getBytes());
         
         DataReader reader = new DataReaderJRockit1_6_0(in);
-        GCModel model = new GCModel();
+        GCModel model = new DefaultGCModel();
         reader.read(model);
         
         assertEquals("count", 1, model.size());

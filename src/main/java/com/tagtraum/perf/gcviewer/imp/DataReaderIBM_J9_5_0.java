@@ -8,8 +8,9 @@
  */
 package com.tagtraum.perf.gcviewer.imp;
 
-import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -44,7 +45,7 @@ public class DataReaderIBM_J9_5_0 implements DataReader {
     public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading IBM J9 5.0 format...");
         try {
-            model.setFormat(GCModel.Format.IBM_VERBOSE_GC);
+            model.setFormat(DefaultGCModel.Format.IBM_VERBOSE_GC);
             DefaultHandler handler = new IBMJ9SAXHandler(model);
 
             // Use the default (non-validating) parser

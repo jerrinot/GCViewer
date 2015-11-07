@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.DefaultGCModel;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.util.NumberParser;
 
@@ -33,7 +34,7 @@ public class DataReaderHPUX1_2 implements DataReader {
     public void read(GCModel model) throws IOException {
         if (LOG.isLoggable(Level.INFO)) LOG.info("Reading HP-UX 1.2-1.4.0 format...");
         try {
-            model.setFormat(GCModel.Format.SUN_X_LOG_GC);
+            model.setFormat(DefaultGCModel.Format.SUN_X_LOG_GC);
             String line = null;
             GCEvent event = null;
             while ((line = in.readLine()) != null) {
